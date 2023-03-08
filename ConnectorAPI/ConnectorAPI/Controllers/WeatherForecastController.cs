@@ -1,4 +1,6 @@
+using Bogus;
 using Microsoft.AspNetCore.Mvc;
+using static Bogus.DataSets.Name;
 
 namespace ConnectorAPI.Controllers
 {
@@ -33,7 +35,12 @@ namespace ConnectorAPI.Controllers
         [HttpGet("Log")]
         public IEnumerable<LogDataEntity> LogData()
         {
-            return new LogDataEntity[] { new LogDataEntity() { Name = "Peter", Activity = "Login" }, new LogDataEntity() { Name = "Hans", Activity = "Register" } };
+            Random random = new Random();
+            int logCount = random.Next(1, 10);
+
+            Faker<LogDataEntity> faker = new Faker<LogDataEntity>().RuleFor(x => x.Name, (f) => f.Name.FirstName(Gender.Male)).RuleFor(x => x.Activity, f => f.PickRandom(new string[] { "Login", "Logout", "Register", "CalledShop", "CalledCart", "CalledCheckout", "CalledFAQ", "MaliciousBehavior" }));
+
+            return faker.Generate(logCount);
         }
     }
 }
