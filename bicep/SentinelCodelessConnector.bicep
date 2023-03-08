@@ -96,7 +96,7 @@ resource codelessConnector 'Microsoft.SecurityInsights/dataConnectors@2021-09-01
         startTimeAttributeName: 'from'
         endTimeAttributeName: 'to'
         queryTimeFormat: 'yyyy-MM-ddTHH:mm:ssZ'
-        queryWindowInMin: 5
+        queryWindowInMin: 60
         rateLimitQps: 5
     }
     response: {
